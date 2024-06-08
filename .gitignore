@@ -47,3 +47,12 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Firebase logs
+firebase-debug.log
+firestore-debug.log
+
+# Firebase config files
+.firebase/
+.firebaserc
+emulator-data/

@@ -1,7 +1,7 @@
 
 ## Pasos
 
-1. Clonar el .env.template y renombrarlo a .env
+1. Clonar el .env.template y renombrarlo a .env y añadir los datos de dev o prod segun corresponda
 2. Llenar las variables de entorno acorde
 3. Crear environments/environments.ts ejecutando npm run envs
 4. ejecutar docker-compose.yml con docker compose up -d
@@ -67,3 +67,13 @@ poner cookies del user y redes sociales en footer no se
 
 
 el user tiene q iniciar sesion o registrarse antes de poder usar la app porque necesito su apikey, el apikey lo guardo en local o en firebase encriptado?
+
+
+npm install -g firebase-tools
+firebase init
+ng add @angular/fire
+
+
+
+
+Firebase de forma local con Firebase Local Emulator Suite

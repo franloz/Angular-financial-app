@@ -1,0 +1,23 @@
+Firebase de forma local con Firebase Local Emulator Suite:
+//video q he visto para estos pasos https://youtu.be/B0-Rl5Vy4Fs?si=livvSxy9fzsS5cbq
+1. npm install -g firebase-tools
+2. firebase login
+3. ng add @angular/fire
+4. firebase init
+    auth: 9099
+    firestore: 8080
+5. para subir los cambios de local a produccion:
+    firebase deploy
+    si solo quiero subir el firestore.rules:
+    firebase deploy --only firestore:rules
+6. añadir en environment.ts la variable useEmulators: true y cuando queramos hacerlo para prod poner false
+7. hacemos los ajustes necesarios en app.module.ts para saber cuando estamos corriendo en dev y cuando en prod y ejecutar la app en local o prod
+8. firebase emulators:start, esto hace q funcione todo
+9. se añade el script "startFirebaseEmulator": "firebase emulators:start --import=emulator-data" en package.json para iniciar el emulador importando los datos de la base de datos del directorio con ellos
+10. se añade el script "exportFirestoreData": "firebase emulators:export emulator-data" en package.json para exportar los datos de la base de datos antes de parar la emulacion
+
+APIKEY_FINANCIAL_MODELING_PREP: "rXAvplbA5PCsIjGIiekI1AjDDxwPDOVN",
+
+//si añado en el dockerignore el .env, luego le tendria q pasar los parametros al correr el contenedor
+
+//añadir test en un futuro  https://youtu.be/B0-Rl5Vy4Fs?si=UW1mT8rbBrSGcYDz

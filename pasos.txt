@@ -21,3 +21,9 @@ APIKEY_FINANCIAL_MODELING_PREP: "rXAvplbA5PCsIjGIiekI1AjDDxwPDOVN",
 //si añado en el dockerignore el .env, luego le tendria q pasar los parametros al correr el contenedor
 
 //añadir test en un futuro  https://youtu.be/B0-Rl5Vy4Fs?si=UW1mT8rbBrSGcYDz
+
+
+
+Git
+git pull origin main
+git push origin nombre-rama

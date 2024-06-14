@@ -1,1 +1,27 @@
-<p>login-page works!</p>
+<form
+  class="flex flex-col items-center border border-black p-8 gap-5 w-96"
+  [formGroup]="myForm"
+  (ngSubmit)="login()"
+>
+
+  <p class="text-3xl font-bold mb-3">Login</p>
+
+  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email">
+
+  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password">
+
+  <button class="bg-cyan-500 border border-black w-full p-3" type="submit"><!--[disabled]="myForm.invalid"-->
+    Login
+  </button>
+
+  <div class="">
+    <span class="">
+      Need an account?
+    </span>
+
+    <a routerLink="/auth/register" class="">
+      Sign up
+    </a>
+  </div>
+
+</form>

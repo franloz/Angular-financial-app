@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+//import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 
 @Component({
@@ -9,12 +9,12 @@ import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 })
 export class AppComponent {
 
-  constructor (private firestore: Firestore) {
+  constructor (/* private firestore: Firestore */) {
 
   }
 
-  addData(){
+  /* addData(){
     const ref = collection(this.firestore, 'prove');
     return addDoc(ref, {name: 'nnn'})
-  }
+  } */
 }

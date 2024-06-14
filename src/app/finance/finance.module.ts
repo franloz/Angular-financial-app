@@ -7,6 +7,7 @@ import { WatchlistPageComponent } from './pages/watchlist-page/watchlist-page.co
 import { PortfolioPageComponent } from './pages/portfolio-page/portfolio-page.component';
 import { MarketPageComponent } from './pages/market-page/market-page.component';
 import { AssetPageComponent } from './pages/asset-page/asset-page.component';
+import { FinanceLayoutComponent } from './layouts/finance-layout/finance-layout.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AssetPageComponent } from './pages/asset-page/asset-page.component';
     WatchlistPageComponent,
     PortfolioPageComponent,
     MarketPageComponent,
-    AssetPageComponent
+    AssetPageComponent,
+    FinanceLayoutComponent
   ],
   imports: [
     CommonModule,

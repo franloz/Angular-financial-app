@@ -1,1 +1,40 @@
-<p>register-page works!</p>
+<form
+  class="flex flex-col border border-black p-8 gap-5 w-96"
+  [formGroup]="registerForm"
+  (ngSubmit)="registerUser()"
+>
+
+  <p class="text-3xl font-bold mb-3 text-center">Sign up</p>
+
+  <input class="p-2 border border-black w-full" type="text" formControlName="userName" placeholder="User name*">
+  <span *ngIf="isRequiredField('userName')" class="text-red-600">
+    This field is required
+  </span>
+
+  <pre>{{ registerForm.controls['userName'].errors | json }}</pre>
+
+  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email*">
+
+  <input class="p-2 border border-black w-full" type="text" formControlName="country" placeholder="Country*">
+
+  <input class="p-2 border border-black w-full" type="tel" formControlName="phoneNumber" placeholder="Phone number*">
+
+  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password*">
+
+  <input class="p-2 border border-black w-full" type="password" formControlName="confirmPassword" placeholder="Confirm password*">
+
+  <button class="bg-cyan-500 border border-black w-full p-3" type="submit"><!--[disabled]="myForm.invalid"-->
+    Sign up
+  </button>
+
+  <div class="">
+    <span class="">
+      Already have an account?
+    </span>
+
+    <a routerLink="/auth/login" class="">
+      Sign in
+    </a>
+  </div>
+
+</form>

@@ -27,3 +27,11 @@ APIKEY_FINANCIAL_MODELING_PREP: "rXAvplbA5PCsIjGIiekI1AjDDxwPDOVN",
 Git
 git pull origin main
 git push origin nombre-rama
+
+//ver opcion de desactivar hover y animaciones del navegador de video midu
+
+
+
+
+<!--poner captcha-->
+<!--mobile first havee-->

@@ -6,24 +6,51 @@
 
   <p class="text-3xl font-bold mb-3 text-center">Sign up</p>
 
-  <input class="p-2 border border-black w-full" type="text" formControlName="userName" placeholder="User name*">
-  <span *ngIf="isRequiredField('userName')" class="text-red-600">
+  <input class="p-2 border border-black w-full" type="text" formControlName="userName" placeholder="User name">
+  <span *ngIf="isLengthFieldCorrect('userName')" class="text-red-600">
+    User name must be at least 4 characters long
+  </span>
+  <span *ngIf="hasSpacesField('userName')" class="text-red-600">
+    User name must not contain spaces
+  </span>
+
+
+
+  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email*">
+  <span *ngIf="isRequiredField('email')" class="text-red-600">
+    This field is required
+  </span>
+  <span *ngIf="isValidEmail()" class="text-red-600">
+    Please enter a valid email address
+  </span>
+
+  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password*" (input)="validatePasswordPattern()">
+  <span *ngIf="isRequiredField('password')" class="text-red-600">
     This field is required
   </span>
 
-  <pre>{{ registerForm.controls['userName'].errors | json }}</pre>
+  <div *ngIf="showPasswordWarnings()">
+    <p *ngFor="let warning of passwordWarnings" [ngClass]="warning.classColor" class="flex items-center gap-1"><img src="{{ warning.icon }}" alt="My Icon"> {{ warning.message }}</p>
+  </div>
 
-  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email*">
-
-  <input class="p-2 border border-black w-full" type="text" formControlName="country" placeholder="Country*">
-
-  <input class="p-2 border border-black w-full" type="tel" formControlName="phoneNumber" placeholder="Phone number*">
-
-  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password*">
 
   <input class="p-2 border border-black w-full" type="password" formControlName="confirmPassword" placeholder="Confirm password*">
+  <span *ngIf="isRequiredField('confirmPassword')" class="text-red-600">
+    This field is required
+  </span>
+  <span *ngIf="isConfirmPasswortEqualToPassword()" class="text-red-600">
+    Passwords do not coincide
+  </span>
 
-  <button class="bg-cyan-500 border border-black w-full p-3" type="submit"><!--[disabled]="myForm.invalid"-->
+  <button
+    [disabled]="registerForm.invalid"
+    [ngClass]="{
+      'bg-slate-500' : registerForm.invalid,
+      'bg-cyan-500' : registerForm.valid,
+    }"
+    class="border border-black w-full p-3"
+    type="submit"
+  >
     Sign up
   </button>
 

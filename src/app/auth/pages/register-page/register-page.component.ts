@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidatorsService } from '../../services/validators.service.service';
 import { Warning } from '../../interfaces/warning-checks.interface';
+import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -11,7 +13,7 @@ import { Warning } from '../../interfaces/warning-checks.interface';
 export class RegisterPageComponent {
 
   public registerForm: FormGroup = this.fb.group({
-    userName: ['', [Validators.minLength(4), Validators.pattern(this.validatorsService.spacesPattern)]],
+    /* userName: ['', [Validators.minLength(4), Validators.pattern(this.validatorsService.spacesPattern)]], */
     email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     password: ['', [Validators.required, Validators.minLength(8),Validators.pattern(this.validatorsService.passwordPattern)]],
     confirmPassword: ['', [Validators.required]]
@@ -23,36 +25,14 @@ export class RegisterPageComponent {
 
   public passwordWarnings: Warning[] | null = [];
 
+  public fbErrorMessage: string = '';
+
   constructor(
     private fb: FormBuilder,
-    private validatorsService: ValidatorsService
+    private validatorsService: ValidatorsService,
+    private userService: UserService,
+    private router: Router,
   ) { }
-
-  /* public validateField(field: string) {
-    const control = this.registerForm.controls[field];
-
-    if (!control) return false;
-
-    if (!control.touched) return false;
-
-    if (control.errors?.['required']) {
-      return 'This field is required';
-    }
-
-  } */
-/*
-  public showErrorsField(field: string) {
-    const control = this.registerForm.controls[field];
-    if (!control || !control.touched) return false;
-
-    const errorMessages = [];
-
-    if (control.errors?.['pattern']?.['requiredPattern'] === this.validatorsService.spacesPattern) {
-
-    }
-    //tengo q identificar el campo que es y luego los errores de ese campo
-
-  } *///?me falta las de firebase asincronas y crear user supongo
 
   public isConfirmPasswortEqualToPassword(){
     const control = this.registerForm.get('confirmPassword');
@@ -90,6 +70,26 @@ export class RegisterPageComponent {
   }
 
   public registerUser() {
-
+    if (this.registerForm.invalid) return;
+    this.userService.registerUser(this.registerForm.value)
+      .then((response) => {
+        this.router.navigate(['']);//!no se si dberia llevar al login, verlo despues con guards
+      })
+      .catch( error => {
+        switch (error.code) {
+          case 'auth/email-already-in-use':
+            this.fbErrorMessage = 'This email is already in use.';
+            break;
+          case 'auth/invalid-email':
+            this.fbErrorMessage = 'Please enter a valid email address.';
+            break;
+          case 'auth/weak-password':
+            this.fbErrorMessage = 'Password must be at least 6 characters long.';
+            break;
+          default:
+            this.fbErrorMessage = 'An unexpected error occurred. Please try again later.';
+            break;
+        }
+      });
   }
 }

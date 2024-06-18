@@ -1,22 +1,44 @@
 <form
-  class="flex flex-col items-center border border-black p-8 gap-5 w-96"
-  [formGroup]="myForm"
-  (ngSubmit)="login()"
+  class="flex flex-col border border-black p-8 gap-5 w-96"
+  [formGroup]="loginForm"
+  (ngSubmit)="loginUser()"
 >
 
-  <p class="text-3xl font-bold mb-3">Login</p>
+  <p class="text-3xl font-bold mb-3 text-center">Login</p>
 
-  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email">
+  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email*">
+  <span *ngIf="isRequiredField('email')" class="text-red-600">
+    This field is required
+  </span>
 
-  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password">
+  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password*" (focus)="fbErrorMessage = ''">
+  <span *ngIf="isRequiredField('password')" class="text-red-600">
+    This field is required
+  </span>
 
-  <button class="bg-cyan-500 border border-black w-full p-3" type="submit"><!--[disabled]="myForm.invalid"-->
-    Login
+  <div *ngIf="fbErrorMessage" class="text-red-600">
+    {{ fbErrorMessage }}
+  </div>
+
+  <div class="text-blue-600">
+    Forgot your password?
+  </div>
+
+  <button
+    [disabled]="loginForm.invalid"
+    [ngClass]="{
+      'bg-slate-500' : loginForm.invalid,
+      'bg-cyan-500' : loginForm.valid,
+    }"
+    class="border border-black w-full p-3"
+    type="submit"
+  >
+    Sign in
   </button>
 
   <div class="">
     <span class="">
-      Need an account?
+      Do not have an account?
     </span>
 
     <a routerLink="/auth/register" class="">

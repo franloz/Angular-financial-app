@@ -6,13 +6,13 @@
 
   <p class="text-3xl font-bold mb-3 text-center">Sign up</p>
 
-  <input class="p-2 border border-black w-full" type="text" formControlName="userName" placeholder="User name">
+  <!--<input class="p-2 border border-black w-full" type="text" formControlName="userName" placeholder="User name">
   <span *ngIf="isLengthFieldCorrect('userName')" class="text-red-600">
     User name must be at least 4 characters long
   </span>
   <span *ngIf="hasSpacesField('userName')" class="text-red-600">
     User name must not contain spaces
-  </span>
+  </span>-->
 
 
 
@@ -41,6 +41,10 @@
   <span *ngIf="isConfirmPasswortEqualToPassword()" class="text-red-600">
     Passwords do not coincide
   </span>
+
+  <div *ngIf="fbErrorMessage" class="text-red-600">
+    {{ fbErrorMessage }}
+  </div>
 
   <button
     [disabled]="registerForm.invalid"

@@ -35,3 +35,6 @@ git push origin nombre-rama
 
 <!--poner captcha-->
 <!--mobile first havee-->
+///poner un lazyload para todo en modulo shared
+poner el lazyload para cuando inicio sesion y register, ver como lo hacen otras paginas
+fotgot password and dialog para poner apikey y guardar apikey en algun sitio

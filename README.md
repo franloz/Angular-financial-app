@@ -50,6 +50,11 @@ en market seran dos paginas con dos urls:
 
 /////la page del activo en si donde la meto????????????? puede que en market
 
+
+
+
+
+
 hacer paginacion en el market, y lo de elegir moneda e idioma en header
 
 paginas seran:
@@ -66,7 +71,7 @@ poner cookies del user y redes sociales en footer no se
 
 
 
-el user tiene q iniciar sesion o registrarse antes de poder usar la app porque necesito su apikey, el apikey lo guardo en local o en firebase encriptado?
+el user tiene q iniciar sesion o registrarse antes de poder usar la app porque necesito su apikey, el apikey lo guardo en local o en firebase encriptado?, cuando se registre que salga una pantalla que estara en shared q diga que tiene que meter el apikey
 
 
 npm install -g firebase-tools

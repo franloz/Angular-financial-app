@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-//import { Firestore, addDoc, collection } from '@angular/fire/firestore';
+
 
 
 @Component({
@@ -9,12 +9,13 @@ import { Component, ViewChild } from '@angular/core';
 })
 export class AppComponent {
 
-  constructor (/* private firestore: Firestore */) {
+  constructor ( /* private firestore: Firestore ,private auth: Auth, */) {
 
   }
 
-  /* addData(){
-    const ref = collection(this.firestore, 'prove');
-    return addDoc(ref, {name: 'nnn'})
+  /* async guardar(){
+
+    const ref = doc(this.firestore, `users/${this.auth.currentUser?.uid}`);//inserta un documento q es como un registro
+    return await setDoc(ref, {name: 'ssssss'})
   } */
 }

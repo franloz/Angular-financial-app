@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Warning } from '../../interfaces/warning-checks.interface';
 import { UserService } from '../../services/user.service';
-import { ValidatorsService } from '../../services/validators.service.service';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -13,8 +11,8 @@ import { ValidatorsService } from '../../services/validators.service.service';
 export class LoginPageComponent {
 
   public loginForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+    email: ['mmmmm@gmajk.co', [Validators.required]],
+    password: ['1As%jjjf', [Validators.required]],
   });
 
 
@@ -22,15 +20,12 @@ export class LoginPageComponent {
 
   constructor(
     private fb: FormBuilder,
-    private validatorsService: ValidatorsService,
     private userService: UserService,
     private router: Router,
   ) { }
 
 
   //? dejo el remember me de manera automatica, como si
-  //todo: Forgot your password?
-
 
   public isRequiredField(field: string): boolean {
     const control = this.loginForm.controls[field];
@@ -39,21 +34,14 @@ export class LoginPageComponent {
 
 
 
-  public loginUser() {
+  public loginUser(): void {
     if (this.loginForm.invalid) return;
 
     this.userService.loginUser(this.loginForm.value)
       .then(() => {
-        this.router.navigate(['']);//!no se si dberia llevar al login, verlo despues con guards
+        this.router.navigate(['']);
       })
       .catch( error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.log('mmm '+errorCode);
-        console.log('ppp '+errorMessage);
-
-
         switch (error.code) {
           case 'auth/invalid-email':
             this.fbErrorMessage = 'Invalid email.';

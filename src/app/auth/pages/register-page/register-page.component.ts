@@ -14,9 +14,10 @@ export class RegisterPageComponent {
 
   public registerForm: FormGroup = this.fb.group({
     /* userName: ['', [Validators.minLength(4), Validators.pattern(this.validatorsService.spacesPattern)]], */
-    email: ['', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
-    password: ['', [Validators.required, Validators.minLength(8),Validators.pattern(this.validatorsService.passwordPattern)]],
-    confirmPassword: ['', [Validators.required]]
+    email: ['mmmmm@gmajk.co', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
+    password: ['1As%jjjf', [Validators.required, Validators.minLength(8),Validators.pattern(this.validatorsService.passwordPattern)]],
+    confirmPassword: ['1As%jjjf', [Validators.required]],
+    apiKey: ['rXAvplbA5PCsIjGIiekI1AjDDxwPDOVN', [Validators.required, this.validatorsService.testApikey]]
   }, {
     validators: [
       this.validatorsService.comparePasswordFields('password', 'confirmPassword')
@@ -72,24 +73,15 @@ export class RegisterPageComponent {
   public registerUser() {
     if (this.registerForm.invalid) return;
     this.userService.registerUser(this.registerForm.value)
-      .then((response) => {
-        this.router.navigate(['']);//!no se si dberia llevar al login, verlo despues con guards
-      })
-      .catch( error => {
-        switch (error.code) {
-          case 'auth/email-already-in-use':
-            this.fbErrorMessage = 'This email is already in use.';
-            break;
-          case 'auth/invalid-email':
-            this.fbErrorMessage = 'Please enter a valid email address.';
-            break;
-          case 'auth/weak-password':
-            this.fbErrorMessage = 'Password must be at least 6 characters long.';
-            break;
-          default:
-            this.fbErrorMessage = 'An unexpected error occurred. Please try again later.';
-            break;
+      .then(result => {
+        if (result.success) {
+          this.router.navigate(['/login']);
+        } else {
+          this.fbErrorMessage = result.message!;
         }
+      })
+      .catch(() => {
+        this.fbErrorMessage = 'An unexpected error occurred. Please try again later.';
       });
   }
 }

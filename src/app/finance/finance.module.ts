@@ -7,6 +7,7 @@ import { PortfolioPageComponent } from './pages/portfolio-page/portfolio-page.co
 import { MarketPageComponent } from './pages/market-page/market-page.component';
 import { AssetPageComponent } from './pages/asset-page/asset-page.component';
 import { FinanceLayoutComponent } from './layouts/finance-layout/finance-layout.component';
+import { AuthModule } from '../auth/auth.module';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FinanceLayoutComponent } from './layouts/finance-layout/finance-layout.
   ],
   imports: [
     CommonModule,
-    FinanceRoutingModule
+    FinanceRoutingModule,
+    AuthModule,
   ]
 })
 export class FinanceModule { }

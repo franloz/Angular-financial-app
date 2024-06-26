@@ -14,6 +14,7 @@
     User name must not contain spaces
   </span>-->
 
+  <p class="text-xl font-semibold mb-3 text-center">As it is a free tool you will need a key which allows you to access the financial data for free. To do so, please access this <a href="https://site.financialmodelingprep.com/developer/docs/pricing" target="_blank" class="text-blue-500">link</a> </p>
 
 
   <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email*">
@@ -40,6 +41,11 @@
   </span>
   <span *ngIf="isConfirmPasswortEqualToPassword()" class="text-red-600">
     Passwords do not coincide
+  </span>
+
+  <input class="p-2 border border-black w-full" type="text" formControlName="apiKey" placeholder="Introduce your apiKey*">
+  <span *ngIf="isRequiredField('apiKey')" class="text-red-600">
+    This field is required
   </span>
 
   <div *ngIf="fbErrorMessage" class="text-red-600">

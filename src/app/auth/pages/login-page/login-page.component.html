@@ -1,1 +1,51 @@
-<p>login-page works!</p>
+<form
+  class="flex flex-col border border-black p-8 gap-5 w-96"
+  [formGroup]="loginForm"
+  (ngSubmit)="loginUser()"
+>
+
+  <p class="text-3xl font-bold mb-3 text-center">Login</p>
+
+  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email*">
+  <span *ngIf="isRequiredField('email')" class="text-red-600">
+    This field is required
+  </span>
+
+  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password*" (focus)="fbErrorMessage = ''">
+  <span *ngIf="isRequiredField('password')" class="text-red-600">
+    This field is required
+  </span>
+
+  <div *ngIf="fbErrorMessage" class="text-red-600">
+    {{ fbErrorMessage }}
+  </div>
+
+  <div class="text-blue-600">
+    <a routerLink="/auth/forgot-password" class="">
+      Forgot your password?
+    </a>
+  </div>
+
+  <button
+    [disabled]="loginForm.invalid"
+    [ngClass]="{
+      'bg-slate-500' : loginForm.invalid,
+      'bg-cyan-500' : loginForm.valid,
+    }"
+    class="border border-black w-full p-3"
+    type="submit"
+  >
+    Sign in
+  </button>
+
+  <div class="">
+    <span class="">
+      Do not have an account?
+    </span>
+
+    <a routerLink="/auth/register" class="">
+      Sign up
+    </a>
+  </div>
+
+</form>

@@ -1,1 +1,77 @@
-<p>register-page works!</p>
+<form
+  class="flex flex-col border border-black p-8 gap-5 w-96"
+  [formGroup]="registerForm"
+  (ngSubmit)="registerUser()"
+>
+
+  <p class="text-3xl font-bold mb-3 text-center">Sign up</p>
+
+  <!--<input class="p-2 border border-black w-full" type="text" formControlName="userName" placeholder="User name">
+  <span *ngIf="isLengthFieldCorrect('userName')" class="text-red-600">
+    User name must be at least 4 characters long
+  </span>
+  <span *ngIf="hasSpacesField('userName')" class="text-red-600">
+    User name must not contain spaces
+  </span>-->
+
+  <p class="text-xl font-semibold mb-3 text-center">As it is a free tool you will need a key which allows you to access the financial data for free. To do so, please access this <a href="https://site.financialmodelingprep.com/developer/docs/pricing" target="_blank" class="text-blue-500">link</a> </p>
+
+
+  <input class="p-2 border border-black w-full" type="email" formControlName="email" placeholder="Email*">
+  <span *ngIf="isRequiredField('email')" class="text-red-600">
+    This field is required
+  </span>
+  <span *ngIf="isValidEmail()" class="text-red-600">
+    Please enter a valid email address
+  </span>
+
+  <input class="p-2 border border-black w-full" type="password" formControlName="password" placeholder="Password*" (input)="validatePasswordPattern()">
+  <span *ngIf="isRequiredField('password')" class="text-red-600">
+    This field is required
+  </span>
+
+  <div *ngIf="showPasswordWarnings()">
+    <p *ngFor="let warning of passwordWarnings" [ngClass]="warning.classColor" class="flex items-center gap-1"><img src="{{ warning.icon }}" alt="My Icon"> {{ warning.message }}</p>
+  </div>
+
+
+  <input class="p-2 border border-black w-full" type="password" formControlName="confirmPassword" placeholder="Confirm password*">
+  <span *ngIf="isRequiredField('confirmPassword')" class="text-red-600">
+    This field is required
+  </span>
+  <span *ngIf="isConfirmPasswortEqualToPassword()" class="text-red-600">
+    Passwords do not coincide
+  </span>
+
+  <input class="p-2 border border-black w-full" type="text" formControlName="apiKey" placeholder="Introduce your apiKey*">
+  <span *ngIf="isRequiredField('apiKey')" class="text-red-600">
+    This field is required
+  </span>
+
+  <div *ngIf="fbErrorMessage" class="text-red-600">
+    {{ fbErrorMessage }}
+  </div>
+
+  <button
+    [disabled]="registerForm.invalid"
+    [ngClass]="{
+      'bg-slate-500' : registerForm.invalid,
+      'bg-cyan-500' : registerForm.valid,
+    }"
+    class="border border-black w-full p-3"
+    type="submit"
+  >
+    Sign up
+  </button>
+
+  <div class="">
+    <span class="">
+      Already have an account?
+    </span>
+
+    <a routerLink="/auth/login" class="">
+      Sign in
+    </a>
+  </div>
+
+</form>

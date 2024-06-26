@@ -27,3 +27,27 @@ APIKEY_FINANCIAL_MODELING_PREP: "rXAvplbA5PCsIjGIiekI1AjDDxwPDOVN",
 Git
 git pull origin main
 git push origin nombre-rama
+
+//ver opcion de desactivar hover y animaciones del navegador de video midu
+
+
+
+
+<!--poner captcha-->
+<!--mobile first havee-->
+///poner un lazyload para todo en modulo shared
+poner el lazyload para cuando inicio sesion y register, ver como lo hacen otras paginas
+fotgot password
+dialog para poner apikey y guardar apikey en algun sitio
+/////cuando acabe funcionalidad form hacer diseño y responsive y optimizar codigo plantearme no repetir las funciones de verificacion en los ts
+//apuntar el remember me para futuros form de auth
+
+en firebase una coleccion es una tabla y un docmento un registro
+
+pedir la apikey en el registro explicando por que es necesARIA y al registrar al user, comprobar q apikey es correcta haciendo na llamada a la api y si devuelve data es correcta y no salta warning, si es incorrecta salta warning de q apikey es incorrecta, al metodo registeruser envio el email y contraseña y eso iria para eel auth(puedo hacer interfaz con esos dos q sea userauth), en la collection(users) metere un registro(doc) cuyo nombre del doc sera el uid del user, y dentro de el estara la apikey, q deberia cifrar entiendo. A registerUser tmb la pasare apikey q se guardara en tabla users despues de registrar user, poner lazyload minetra hace llamsda a api para verificar q funciona
+
+Hacer un validador custom para la llamada a la api
+en auth he hecho un componente logout que sera un boton y tendre q hacer otro componente q sea el panel de usuario donde ver la apikey gmail y demas, aunque no se si este panel de user deberia ir en shared o en otro modulo puesto q no es auth en si
+
+
+///hacer lazyload

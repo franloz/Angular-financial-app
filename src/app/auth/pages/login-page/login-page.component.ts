@@ -18,6 +18,8 @@ export class LoginPageComponent {
 
   public fbErrorMessage: string = '';
 
+  public isButtonClicked: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -37,9 +39,12 @@ export class LoginPageComponent {
   public loginUser(): void {
     if (this.loginForm.invalid) return;
 
+    this.isButtonClicked = true;
+
     this.userService.loginUser(this.loginForm.value)
       .then(() => {
         this.router.navigate(['']);
+        this.isButtonClicked = false;
       })
       .catch( error => {
         switch (error.code) {
@@ -53,6 +58,8 @@ export class LoginPageComponent {
             this.fbErrorMessage = 'An unexpected error occurred. Please try again later.';
             break;
         }
+        this.isButtonClicked = false;
       });
+
   }
 }

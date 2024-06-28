@@ -27,15 +27,18 @@
   </div>
 
   <button
-    [disabled]="loginForm.invalid"
+    [disabled]="loginForm.invalid || isButtonClicked"
     [ngClass]="{
-      'bg-slate-500' : loginForm.invalid,
+      'bg-slate-500' : loginForm.invalid || isButtonClicked,
       'bg-cyan-500' : loginForm.valid,
     }"
-    class="border border-black w-full p-3"
+    class="border border-black w-full p-3 min-h-[50px]"
     type="submit"
   >
-    Sign in
+    <span *ngIf="!isButtonClicked; else lazyLoader">Sign in</span>
+    <ng-template #lazyLoader>
+      <shared-lazy-loader></shared-lazy-loader>
+    </ng-template>
   </button>
 
   <div class="">

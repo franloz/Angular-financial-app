@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LazyLoaderComponent } from './lazy-loader/lazy-loader.component';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    LazyLoaderComponent
+  ],
   imports: [
     CommonModule
+  ],
+  exports: [
+    LazyLoaderComponent,
   ]
 })
 export class SharedModule { }

@@ -28,6 +28,8 @@ export class RegisterPageComponent {
 
   public fbErrorMessage: string = '';
 
+  public isButtonClicked: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private validatorsService: ValidatorsService,
@@ -72,6 +74,7 @@ export class RegisterPageComponent {
 
   public registerUser() {
     if (this.registerForm.invalid) return;
+    this.isButtonClicked = true;
     this.userService.registerUser(this.registerForm.value)
       .then(result => {
         if (result.success) {
@@ -79,9 +82,11 @@ export class RegisterPageComponent {
         } else {
           this.fbErrorMessage = result.message!;
         }
+        this.isButtonClicked = false;
       })
       .catch(() => {
         this.fbErrorMessage = 'An unexpected error occurred. Please try again later.';
+        this.isButtonClicked = false;
       });
   }
 }

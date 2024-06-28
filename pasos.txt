@@ -50,4 +50,4 @@ Hacer un validador custom para la llamada a la api
 en auth he hecho un componente logout que sera un boton y tendre q hacer otro componente q sea el panel de usuario donde ver la apikey gmail y demas, aunque no se si este panel de user deberia ir en shared o en otro modulo puesto q no es auth en si
 
 
-///hacer lazyload
+///////////////////////////////////////////añadir a campo contraseña el ojo q muestra la contraseña

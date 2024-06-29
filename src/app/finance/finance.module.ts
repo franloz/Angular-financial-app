@@ -8,6 +8,8 @@ import { MarketPageComponent } from './pages/market-page/market-page.component';
 import { AssetPageComponent } from './pages/asset-page/asset-page.component';
 import { FinanceLayoutComponent } from './layouts/finance-layout/finance-layout.component';
 import { AuthModule } from '../auth/auth.module';
+import { GeneralAssetCardComponent } from './components/general/general-asset-card/general-asset-card.component';
+import { PortfolioAssetCardComponent } from './components/portfolio/portfolio-asset-card/portfolio-asset-card.component';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { AuthModule } from '../auth/auth.module';
     PortfolioPageComponent,
     MarketPageComponent,
     AssetPageComponent,
-    FinanceLayoutComponent
+    FinanceLayoutComponent,
+    GeneralAssetCardComponent,
+    PortfolioAssetCardComponent
   ],
   imports: [
     CommonModule,

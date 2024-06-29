@@ -18,6 +18,12 @@ export class LoginPageComponent {
 
   public fbErrorMessage: string = '';
 
+  public isButtonClicked: boolean = false;
+
+  //show password with eye
+  public typeInput: 'password' | 'text' = 'password';
+  public backgroundImageClass: string = "bg-[url('assets/svgs/eye_password_open.svg')]";
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -37,9 +43,13 @@ export class LoginPageComponent {
   public loginUser(): void {
     if (this.loginForm.invalid) return;
 
+    this.isButtonClicked = true;
+
     this.userService.loginUser(this.loginForm.value)
       .then(() => {
+        this.isButtonClicked = false;
         this.router.navigate(['']);
+
       })
       .catch( error => {
         switch (error.code) {
@@ -53,6 +63,18 @@ export class LoginPageComponent {
             this.fbErrorMessage = 'An unexpected error occurred. Please try again later.';
             break;
         }
+        this.isButtonClicked = false;
       });
+
+  }
+
+  public showPassword() {
+    if(this.typeInput === 'password') {
+      this.typeInput = 'text';
+      this.backgroundImageClass = "bg-[url('assets/svgs/eye_password_close.svg')]";
+    } else {
+      this.typeInput = 'password';
+      this.backgroundImageClass = "bg-[url('assets/svgs/eye_password_open.svg')]";
+    }
   }
 }

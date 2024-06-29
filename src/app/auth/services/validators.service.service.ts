@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { WarningColors, WarningMessages, WarningIcons } from '../enums';
 import { Warning, WarningCheck } from '../interfaces/warning-checks.interface';
-import { AbstractControl, ValidationErrors } from '@angular/forms';
+import { AbstractControl, FormControl, ValidationErrors } from '@angular/forms';
+import { Observable, catchError, map, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +22,9 @@ export class ValidatorsService {
   public passwordHasSpecialPattern: RegExp = /^(?=.*[@$#%&*()_+=-?!¿¡]).+$/;
   public numCharactersPattern: RegExp = /^.{8,}$/;
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   public validatePasswordPattern = ( passwordValue: string ): Warning[] | null  => {
 
@@ -105,7 +109,15 @@ export class ValidatorsService {
     }
   }
 
-  public testApikey = (  ) => {
+  public testApikey = ( control: FormControl ): Observable<ValidationErrors | null> => {//devuelve null si no hay errores y si hay devuelve el error
+    const apiKeyValue: string = control.value.trim();
 
+     return this.http.get(`https://financialmodelingprep.com/api/v3/search?query=AA&apikey=${apiKeyValue}&limit=1`)
+      .pipe(
+        map(() => null),
+        catchError(() => {
+          return of({ apiKeyInvalid: true })
+        })
+      );
   }
 }

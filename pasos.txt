@@ -49,5 +49,6 @@ pedir la apikey en el registro explicando por que es necesARIA y al registrar al
 Hacer un validador custom para la llamada a la api
 en auth he hecho un componente logout que sera un boton y tendre q hacer otro componente q sea el panel de usuario donde ver la apikey gmail y demas, aunque no se si este panel de user deberia ir en shared o en otro modulo puesto q no es auth en si
 
+//Attribution is required for all users. It is as simple as putting “Data provided by Financial Modeling Prep” somewhere on your site or app and linking that text to https://financialmodelingprep.com/developer/docs/. In case of limited screen space, or design constraints, the attribution link can be included in your terms of service.
 
-///////////////////////////////////////////añadir a campo contraseña el ojo q muestra la contraseña
+////////////hacer push crear otra rama para hacer cambios en finance

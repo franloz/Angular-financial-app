@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { ValidatorsService } from '../../services/validators.service.service';
 import { Warning } from '../../interfaces/warning-checks.interface';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterPageComponent {
     email: ['mmmmm@gmajk.co', [Validators.required, Validators.pattern(this.validatorsService.emailPattern)]],
     password: ['1As%jjjf', [Validators.required, Validators.minLength(8),Validators.pattern(this.validatorsService.passwordPattern)]],
     confirmPassword: ['1As%jjjf', [Validators.required]],
-    apiKey: ['rXAvplbA5PCsIjGIiekI1AjDDxwPDOVN', [Validators.required, this.validatorsService.testApikey]]
+    apiKey: ['rXAvplbA5PCsIjGIiekI1AjDDxwPDOVN', [Validators.required], [this.validatorsService.testApikey]]
   }, {
     validators: [
       this.validatorsService.comparePasswordFields('password', 'confirmPassword')
@@ -35,7 +36,7 @@ export class RegisterPageComponent {
     private validatorsService: ValidatorsService,
     private userService: UserService,
     private router: Router,
-  ) { }
+  ) {}
 
   public isConfirmPasswortEqualToPassword(){
     const control = this.registerForm.get('confirmPassword');
@@ -72,21 +73,29 @@ export class RegisterPageComponent {
     this.passwordWarnings = this.validatorsService.validatePasswordPattern(passwordValue);
   }
 
+  public isValidApiKey = () => {
+    const control = this.registerForm.get('apiKey');
+    return control?.errors?.['apiKeyInvalid'] && control.touched  ;
+  }
+
   public registerUser() {
     if (this.registerForm.invalid) return;
     this.isButtonClicked = true;
     this.userService.registerUser(this.registerForm.value)
       .then(result => {
+        this.isButtonClicked = false;
         if (result.success) {
           this.router.navigate(['/login']);
         } else {
           this.fbErrorMessage = result.message!;
         }
-        this.isButtonClicked = false;
+
       })
       .catch(() => {
         this.fbErrorMessage = 'An unexpected error occurred. Please try again later.';
         this.isButtonClicked = false;
       });
   }
+
+
 }

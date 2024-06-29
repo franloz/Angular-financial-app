@@ -48,6 +48,10 @@
     This field is required
   </span>
 
+  <div *ngIf="isValidApiKey()" class="text-red-600">
+    Apikey is invalid
+  </div>
+
   <div *ngIf="fbErrorMessage" class="text-red-600">
     {{ fbErrorMessage }}
   </div>

@@ -20,6 +20,10 @@ export class LoginPageComponent {
 
   public isButtonClicked: boolean = false;
 
+  //show password with eye
+  public typeInput: 'password' | 'text' = 'password';
+  public backgroundImageClass: string = "bg-[url('assets/svgs/eye_password_open.svg')]";
+
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
@@ -43,8 +47,9 @@ export class LoginPageComponent {
 
     this.userService.loginUser(this.loginForm.value)
       .then(() => {
-        this.router.navigate(['']);
         this.isButtonClicked = false;
+        this.router.navigate(['']);
+
       })
       .catch( error => {
         switch (error.code) {
@@ -61,5 +66,15 @@ export class LoginPageComponent {
         this.isButtonClicked = false;
       });
 
+  }
+
+  public showPassword() {
+    if(this.typeInput === 'password') {
+      this.typeInput = 'text';
+      this.backgroundImageClass = "bg-[url('assets/svgs/eye_password_close.svg')]";
+    } else {
+      this.typeInput = 'password';
+      this.backgroundImageClass = "bg-[url('assets/svgs/eye_password_open.svg')]";
+    }
   }
 }

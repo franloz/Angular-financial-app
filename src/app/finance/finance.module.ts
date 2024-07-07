@@ -10,6 +10,7 @@ import { FinanceLayoutComponent } from './layouts/finance-layout/finance-layout.
 import { AuthModule } from '../auth/auth.module';
 import { GeneralAssetCardComponent } from './components/general/general-asset-card/general-asset-card.component';
 import { PortfolioAssetCardComponent } from './components/portfolio/portfolio-asset-card/portfolio-asset-card.component';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { PortfolioAssetCardComponent } from './components/portfolio/portfolio-as
     CommonModule,
     FinanceRoutingModule,
     AuthModule,
+    SharedModule,
   ]
 })
 export class FinanceModule { }

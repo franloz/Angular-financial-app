@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AssetDataCustom } from '../../../interfaces/asset-data-custom.interface';
 
 @Component({
   selector: 'finance-general-asset-card',
@@ -7,4 +8,5 @@ import { Component } from '@angular/core';
 })
 export class GeneralAssetCardComponent {
 
+  @Input() asset?: AssetDataCustom;
 }

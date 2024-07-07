@@ -1,3 +1,38 @@
-<finance-general-asset-card></finance-general-asset-card>
 
-<app-logout></app-logout>
+
+
+<table class="w-full">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Symbol</th>
+      <th>Price</th>
+      <th>Change %</th>
+      <th>Market cap</th>
+      <th>Circulating Supply</th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+
+    <ng-container *ngIf="financeAssets.length > 0; else lazyLoader">
+      <finance-general-asset-card role="row" class="table-row" *ngFor="let asset of financeAssets" [asset]="asset"></finance-general-asset-card>
+    </ng-container>
+    <ng-template #lazyLoader>
+      <shared-lazy-loader></shared-lazy-loader>
+    </ng-template>
+
+
+
+  </tbody>
+</table>
+
+
+<!--<button (click)="get()">cfvf</button>-->
+
+
+
+
+
+
+
+<auth-logout></auth-logout>

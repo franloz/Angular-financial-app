@@ -72,4 +72,4 @@ poner cookies del user y redes sociales en footer no se
 Componentes de finance
 
 
-///maquetar bien auth y decidir colores app y seguir con market
+

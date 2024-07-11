@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FinanceService } from '../../services/finance.service';
 import { AssetDataCustom } from '../../interfaces/asset-data-custom.interface';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Observable, switchMap } from 'rxjs';
 
 @Component({
   templateUrl: './market-page.component.html',
@@ -8,27 +10,41 @@ import { AssetDataCustom } from '../../interfaces/asset-data-custom.interface';
 })
 export class MarketPageComponent implements OnInit{
 
-
-  //la llamada a la api se va a hacer cada vez q se acceda a esta pagina, lo cual consume llamadas api pero si no lo hago no se podra ver el precio a tiempo casi real a no ser q actualice a mano el user, ver si api devuelve el precio actual o el del dia anterior si es el del dia anterior q haga solo una vez esta consulta y lo guarde en localstorage
-
-  //llamada para sacar los q sean por capitalizacion y luego con eso obtengo los codigos y obtengo sus valores
-
   public financeAssets: AssetDataCustom[] = [];
+  //actual page for pagination
+  public currentPage: number = 1;
+  //array with assets which it will be shown en every page
+  public assetsShownPerPage: AssetDataCustom[] = [];
 
   constructor(
     private financeService: FinanceService,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
-
   ngOnInit(): void {
+    //get assets
     this.financeService.getAssets()
-      .subscribe(asset => {
-        this.financeAssets = asset;
+      .pipe(
+        switchMap(assetList => {
+          this.financeAssets = assetList;
+          return this.activatedRoute.queryParamMap;
+        })
+      )
+      .subscribe(params => {
+        this.setCurrentPage(params);
+        this.divideFinanceAssetsPerPage();
       });
   }
-///!como hago la paginacion
 
+  private setCurrentPage = (params : ParamMap) => {
+    const page = params.get('page');
+    this.currentPage = page ? +page : 1;
+  }
 
-
+  private divideFinanceAssetsPerPage = () => {
+    const startIndex = (this.currentPage-1)*20;
+    const endIndex = this.currentPage*20;
+    this.assetsShownPerPage = this.financeAssets.slice(startIndex, endIndex);
+  }
 
 }

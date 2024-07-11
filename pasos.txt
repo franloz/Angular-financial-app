@@ -73,3 +73,6 @@ Componentes de finance
 
 
 
+//todo. configurar componente con mensaje de limite consultas a api y seguir con array de pruebas, poner paginacion en notion
+
+      ///todo. variable global q sea un contador para ver cuantas veces se llama a api

@@ -1,0 +1,12 @@
+
+
+<div class="flex gap-3 items-center justify-center">
+  <button
+    (click)="changePage(i + 1)"
+    [ngClass]="{ 'bg-gray-600': currentPage === (i + 1), 'page-1': (i === 0 && currentPage === 1) }"
+    *ngFor="let page of [].constructor(pagesNumber); let i = index">
+    {{ i + 1 }}
+  </button>
+</div>
+<!--<a routerLink="" >fff</a>-->
+<!--<button (click)="get()">nnnn</button>-->

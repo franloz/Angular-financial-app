@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from '@angular/fire/auth';
 import { User } from '../interfaces/user.interface';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, doc, getDoc, setDoc } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -15,14 +15,17 @@ export class UserService {
     private firestore: Firestore,
   ) { }
 
+  public getUidUserFb(): string  {
+    return this.auth.currentUser!.uid;
+  }
+
   public registerUser({ email, password, apiKey }: User): Promise<{ success: boolean, message?: string }> {
     return createUserWithEmailAndPassword(this.auth, email, password)
-      .then(() => {
-        //this.router.navigate(['/login']);
+      .then(async () => {
+
         //take uid user and save apikey using his uid as id doc
-        const uidUser = this.auth.currentUser!.uid;
-        const refUser = doc(this.firestore, `users/${uidUser}`);
-        return setDoc(refUser, { apiKey }); // es lo mismo que { apiKey:apikey }
+        const refUser = doc(this.firestore, `users/${this.getUidUserFb()}`);
+        return await setDoc(refUser, { apiKey }); // es lo mismo que { apiKey:apikey }
       })
       .then(() => {
         //in this then it enter if setDoc is succesful
@@ -56,6 +59,7 @@ export class UserService {
 
   public loginUser({ email, password }: User) {
     return signInWithEmailAndPassword(this.auth, email, password);
+    //meter aqui el then y catch y poner await this.getApiKeyFinance();
   }
 
   public logOut() {
@@ -66,4 +70,5 @@ export class UserService {
 
     return sendPasswordResetEmail(this.auth, email);
   }
+
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
+import { ApikeyService } from '../../services/apikey.service';
 
 @Component({
   templateUrl: './login-page.component.html',
@@ -28,6 +29,7 @@ export class LoginPageComponent {
     private fb: FormBuilder,
     private userService: UserService,
     private router: Router,
+    private apiKey: ApikeyService,
   ) { }
 
 
@@ -46,8 +48,9 @@ export class LoginPageComponent {
     this.isButtonClicked = true;
 
     this.userService.loginUser(this.loginForm.value)
-      .then(() => {
+      .then(async () => {
         this.isButtonClicked = false;
+        await this.apiKey.setApiKey();
         this.router.navigate(['']);
 
       })

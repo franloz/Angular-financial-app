@@ -1,0 +1,11 @@
+
+
+
+
+
+  <td>{{ asset?.name }}</td>
+  <td>{{ asset?.symbol }}</td>
+  <td>{{ asset?.price | currency: 'USD' : 'symbol' : '1.0-2' }}</td><!--tendre q ponerlo con la moneda que sea, la api me lo devuelve en usd, siq uiero poder elegir una moneda para la app tendre q hacer una conversion con algo-->
+  <td>{{ asset?.changesPercentage| number:'1.0-2'}}%</td>
+  <td>{{ asset?.marketCap | number }}</td><!--tendra q poner 3.23 T USD, hacerlo con un pipe creo, usar pipe de number verlos-->
+  <td>{{ asset?.sharesOutstanding| number }}</td><!--15.334.082.000-->

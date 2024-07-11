@@ -52,3 +52,27 @@ en auth he hecho un componente logout que sera un boton y tendre q hacer otro co
 //Attribution is required for all users. It is as simple as putting “Data provided by Financial Modeling Prep” somewhere on your site or app and linking that text to https://financialmodelingprep.com/developer/docs/. In case of limited screen space, or design constraints, the attribution link can be included in your terms of service.
 
 ////////////hacer push crear otra rama para hacer cambios en finance
+
+
+
+
+hacer paginacion en el market, y lo de elegir moneda e idioma en header
+
+paginas seran:
+/portfolio
+/watchlist
+/   --sera el market
+/activos/apple
+
+
+header con buscador, idioma, moneda, y market, portfolio, watchlist , modo oscuro, ventanilla para cerrar sesion y estos ajustes en movil, terminos de uso , politica de privacidad
+
+poner cookies del user y redes sociales en footer no se
+
+Componentes de finance
+
+
+
+//todo. configurar componente con mensaje de limite consultas a api y seguir con array de pruebas, poner paginacion en notion
+
+      ///todo. variable global q sea un contador para ver cuantas veces se llama a api

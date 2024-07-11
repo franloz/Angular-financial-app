@@ -5,6 +5,7 @@ import { Warning } from '../../interfaces/warning-checks.interface';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { ApikeyService } from '../../services/apikey.service';
 
 
 @Component({
@@ -36,6 +37,8 @@ export class RegisterPageComponent {
     private validatorsService: ValidatorsService,
     private userService: UserService,
     private router: Router,
+    private apiKey: ApikeyService,
+
   ) {}
 
   public isConfirmPasswortEqualToPassword(){
@@ -82,9 +85,10 @@ export class RegisterPageComponent {
     if (this.registerForm.invalid) return;
     this.isButtonClicked = true;
     this.userService.registerUser(this.registerForm.value)
-      .then(result => {
+      .then(async result => {
         this.isButtonClicked = false;
         if (result.success) {
+          await this.apiKey.setApiKey();
           this.router.navigate(['/login']);
         } else {
           this.fbErrorMessage = result.message!;

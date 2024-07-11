@@ -1,4 +1,27 @@
-<p>market-page works!</p>
+<table class="w-full">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Symbol</th>
+      <th>Price</th>
+      <th>Change %</th>
+      <th>Market cap</th>
+      <th>Circulating Supply</th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    <ng-container *ngIf="financeAssets.length > 0; else lazyLoader">
+      <finance-general-asset-card role="row" class="table-row" *ngFor="let asset of assetsShownPerPage"
+        [asset]="asset"></finance-general-asset-card>
+    </ng-container>
+    <ng-template #lazyLoader>
+      <shared-lazy-loader></shared-lazy-loader>
+    </ng-template>
+  </tbody>
+</table>
+<shared-pagination [financeAssets]="financeAssets" [currentPage]="currentPage"></shared-pagination>
 
 
-<app-logout></app-logout>
+
+
+<auth-logout></auth-logout>

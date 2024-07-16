@@ -35,8 +35,6 @@ export class PaginationComponent {
     private router: Router,
   ) {}
 
-
-
   public changePage = (page: number): void => {
     if (page === 1) {
       this.router.navigate([], {
@@ -50,7 +48,4 @@ export class PaginationComponent {
       })
     }
   }
-
-
-
 }

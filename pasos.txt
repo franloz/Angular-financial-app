@@ -72,7 +72,15 @@ poner cookies del user y redes sociales en footer no se
 Componentes de finance
 
 
-
+//////////
 //todo. configurar componente con mensaje de limite consultas a api y seguir con array de pruebas, poner paginacion en notion
 
       ///todo. variable global q sea un contador para ver cuantas veces se llama a api
+///////////////
+
+
+///hacer header
+
+// para elegir tipo de activo en el css hacer efecto de pagina de tesla de hover q hizo midu
+
+//si pongo filtros el tipi de activo se tiene q poner en acciones q es el de por defecto supongo

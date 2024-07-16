@@ -1,0 +1,8 @@
+
+<button
+  (click)="changeAssetTypes(assetType.toLowerCase())"
+  [ngClass]="{'bg-blue-700' : currentAssetType == assetType.toLowerCase() || (currentAssetType == undefined && assetType.toLowerCase() == 'nasdaq') }"
+  class="bg-blue-300 p-1"
+  *ngFor="let assetType of assetTypes">
+    {{ assetType }}
+</button>

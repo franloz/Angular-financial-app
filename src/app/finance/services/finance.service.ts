@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
-import { AssetNasdaq } from '../interfaces/asset-nasdaq.interface';
 import { ApikeyService } from '../../auth/services/apikey.service';
-import { AssetData } from '../interfaces/asset-data.interface';
-import { AssetDataCustom } from '../interfaces/asset-data-custom.interface';
+import { AssetData, AssetDataCustom, AssetNasdaq, AssetCrypto } from '../interfaces';
+
 
 @Injectable({
   providedIn: 'root'
@@ -834,10 +833,28 @@ export class FinanceService {
   ];
 
 
-  public getAssetSymbolList = (): Observable<string> => {
-    return this.http.get<AssetNasdaq[]>(`${this._apiUrl}nasdaq_constituent?apikey=${this.apiKey.getApiKey()}`)
+  public getAssetSymbolList = (assetType: string): Observable<string> => {
+
+    let getApi: string = '';
+    switch (assetType) {
+      case 'dowjones':
+        getApi = 'dowjones_constituent';
+        break;
+
+      case 'crypto':
+        getApi = 'symbol/available-cryptocurrencies';
+        break;
+
+      default:
+        getApi = 'nasdaq_constituent';
+        break;
+    }
+
+    return this.http.get<AssetNasdaq[] | AssetCrypto[]>(`${this._apiUrl}${getApi}?apikey=${this.apiKey.getApiKey()}`)
       .pipe(
+        map(assetList => assetList.slice(0, 100)),
         map(assetList => assetList.map(asset => asset.symbol).join()),
+        tap(assetList => console.log(assetList)),
         catchError(() => of(''))
       );
   }
@@ -859,8 +876,8 @@ export class FinanceService {
       );
   }
 
-  public getAssets = (): Observable<AssetDataCustom[]> => {
-    return this.getAssetSymbolList()
+  public getAssets = (assetType: string): Observable<AssetDataCustom[]> => {
+    return this.getAssetSymbolList(assetType)
       .pipe(
         switchMap(asset => this.getAssetDataList(asset)),
       );

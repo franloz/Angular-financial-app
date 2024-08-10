@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
 import { ApikeyService } from '../../auth/services/apikey.service';
-import { AssetData, AssetDataCustom, AssetNasdaq, AssetCrypto } from '../interfaces';
+import { AssetData, AssetDataCustom, AssetNasdaq, AssetCrypto, FilterFormValues, AssetStockScreener } from '../interfaces';
 
 
 @Injectable({
@@ -17,19 +17,7 @@ export class FinanceService {
     private apiKey: ApikeyService,
   ) { }
 
-  /* public get apiKeyFinance() {
-    return this._apiKeyFinance;
-  } */
-
-
-  //todo. getAssetsByMarketCap()
-  //? 1. consulta por capitalizacion
-  //? 2. obtener ticket asstes en un array y convertirlo a string separado por comas
-
-  //todo. getDataAssets()
-  //? 1. hacer consulta con string de tickets y meterlo en financeAssets[]
-
-   arrayDeDatos: AssetDataCustom[] = [
+  /*  arrayDeDatos: AssetDataCustom[] = [
     {
       name: 'Asset 1',
       symbol: 'SYM1',
@@ -830,11 +818,38 @@ export class FinanceService {
       marketCap: 1140000000,
       sharesOutstanding: 51000000
     }
-  ];
+  ]; */
 
+  public getAssetSymbols = (getApi: string, filterForm?: FilterFormValues): Observable<string> => {
 
-  public getAssetSymbolList = (assetType: string): Observable<string> => {
+    let filterFormString = '';
+    if (filterForm) {//convert filterForm in query params
+      for (const key in filterForm) {
+        if (filterForm.hasOwnProperty(key)) {
+          let valueForm = filterForm[key as keyof FilterFormValues] ?? '';
+          if (Array.isArray(valueForm)) {
+            const filteredValue = valueForm.filter(value => value !== '');
+            valueForm = filteredValue.join(',');
+          }
+          filterFormString += `&${key}=${valueForm}`;
+        }
+      }
+      //console.log(filterFormString);
+      filterFormString += `&limit=100&exchange=nyse,nasdaq&country=US`;
+    }
+    //console.log(`bbbb   ${this._apiUrl}${getApi}?apikey=${this.apiKey.getApiKey()}${filterFormString}`);
 
+    return this.http.get<AssetNasdaq[] | AssetCrypto[] | AssetStockScreener[]>(`${this._apiUrl}${getApi}?apikey=${this.apiKey.getApiKey()}${filterFormString}`)
+    .pipe(
+      map(assetList => assetList.slice(0, 100)),
+      map(assetList => assetList.map(asset => asset.symbol).join()),
+      catchError(() => of(''))
+    );
+  }
+
+  public getAssetSymbolList = (assetType: string, filterForm?: FilterFormValues): Observable<string> => {
+
+    //types of assets
     let getApi: string = '';
     switch (assetType) {
       case 'dowjones':
@@ -845,18 +860,17 @@ export class FinanceService {
         getApi = 'symbol/available-cryptocurrencies';
         break;
 
+      case 'filter':
+        getApi = 'stock-screener';
+        break;
+
       default:
         getApi = 'nasdaq_constituent';
         break;
     }
 
-    return this.http.get<AssetNasdaq[] | AssetCrypto[]>(`${this._apiUrl}${getApi}?apikey=${this.apiKey.getApiKey()}`)
-      .pipe(
-        map(assetList => assetList.slice(0, 100)),
-        map(assetList => assetList.map(asset => asset.symbol).join()),
-        tap(assetList => console.log(assetList)),
-        catchError(() => of(''))
-      );
+    return this.getAssetSymbols(getApi, filterForm);
+
   }
 
   public getAssetDataList = (assetSymbolList: string): Observable<AssetDataCustom[]> => {
@@ -876,8 +890,8 @@ export class FinanceService {
       );
   }
 
-  public getAssets = (assetType: string): Observable<AssetDataCustom[]> => {
-    return this.getAssetSymbolList(assetType)
+  public getAssets = (assetType: string, filterForm?: FilterFormValues): Observable<AssetDataCustom[]> => {
+    return this.getAssetSymbolList(assetType, filterForm)
       .pipe(
         switchMap(asset => this.getAssetDataList(asset)),
       );

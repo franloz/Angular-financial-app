@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 export class AssetTypesComponent {
 
-  public assetTypes: ['Nasdaq','DowJones','Crypto'] = ['Nasdaq','DowJones','Crypto'];
+  public assetTypes: ['Stocks','DowJones','Crypto'] = ['Stocks','DowJones','Crypto'];
   @Input() currentAssetType: string ='';
 
   constructor(

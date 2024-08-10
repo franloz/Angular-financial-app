@@ -84,3 +84,6 @@ Componentes de finance
 // para elegir tipo de activo en el css hacer efecto de pagina de tesla de hover q hizo midu
 
 //si pongo filtros el tipi de activo se tiene q poner en acciones q es el de por defecto supongo
+apikeys
+MvxdK6PkBvY4SCDMabFLier5mcd0Zwy2
+DeaS2JU5MzkER5o5TKfPFiBnVHPo8oE1

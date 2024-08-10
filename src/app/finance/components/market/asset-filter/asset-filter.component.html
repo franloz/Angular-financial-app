@@ -1,0 +1,113 @@
+
+<dialog class="border-2 border-black p-3" #filterDialog>
+  <button class="flex justify-end w-full" (click)="closeModal()"><img src="assets/svgs/x_close_modal.svg" alt="Close" title="close" width="30" height="30"></button>
+  <form
+  class="flex flex-col p-8 gap-5"
+  [formGroup]="filterForm"
+  (ngSubmit)="filterAssets()"
+  >
+
+    <div>
+      <label for="market-cap-more-than">Market Cap more than:</label>
+      <input type="number" id="market-cap-more-than" formControlName="marketCapMoreThan" class="border border-black"/>
+    </div>
+
+    <div>
+      <label for="market-cap-lower-than">Market Cap lower than:</label>
+      <input type="number" id="market-cap-lower-than" formControlName="marketCapLowerThan"  class="border border-black"/>
+    </div>
+
+    <div>
+      <label for="price-more-than">Price more than:</label>
+      <input type="number" id="price-more-than" formControlName="priceMoreThan"  class="border border-black"/>
+    </div>
+
+    <div>
+      <label for="price-lower-than">Price lower than:</label>
+      <input type="number" id="price-lower-than" formControlName="priceLowerThan"  class="border border-black"/>
+    </div>
+
+
+
+    <div>
+      <label for="is-etf">Is ETF:</label>
+      <input type="checkbox" id="is-etf" formControlName="isEtf"  class="border border-black"/>
+    </div>
+
+    <div>
+      <label for="is-fund">Is Fund:</label>
+      <input type="checkbox" id="is-fund" formControlName="isFund"  class="border border-black"/>
+    </div>
+
+
+
+    <!--<div formArrayName="sectors">
+      <p>Sector:</p>
+      <div>
+        <label *ngFor="let sector of sectors; let i = index">
+          <input type="checkbox" [formControlName]="i"> {{ sector | titlecase }}
+        </label>
+      </div>
+    </div>-->
+
+
+
+    <!--<div>
+      <p>Country:</p>
+      <div formArrayName="countries">
+
+        <label *ngFor="let country of countries; let i = index;">
+          <input type="checkbox" [formControlName]="i"> {{ country.name | titlecase }}
+        </label>
+
+      </div>
+    </div>-->
+
+    <div *ngIf="filterForm.get('marketCapMoreThan')?.errors?.['pattern']" class="text-red-600">
+      Fields Market Cap more, Market Cap lower, Price more and Price lower must be numbers
+    </div>
+
+    <div *ngIf="filterForm.get('marketCapMoreThan')?.errors?.['marketCapLowerIsMore']" class="text-red-600">
+      Market Cap lower can't be lower than Market Cap more
+    </div>
+
+    <div *ngIf="filterForm.get('priceMoreThan')?.errors?.['priceLowerIsMore']" class="text-red-600">
+      Price lower can't be lower than Price more
+    </div>
+
+    <div>
+      <button type="button" class="bg-cyan-500 p-2" (click)="resetForm()">Reset</button>
+    </div>
+
+    <div>
+      <button
+        [disabled]="filterForm.invalid || !hasChangedFilterFormValues()"
+        type="submit"
+        [ngClass]="{
+          'bg-slate-500' : filterForm.invalid || !hasChangedFilterFormValues(),
+          'bg-cyan-500' : filterForm.valid || hasChangedFilterFormValues(),
+        }"
+        class="bg-blue-400 p-3"
+      >
+        Filter
+      </button>
+    </div>
+
+
+  </form>
+  <!--<pre>{{filterForm.get('marketCapMoreThan')?.errors | json}}</pre>
+  <pre>{{ filterForm.get('marketCapMoreThan')?.errors?.['marketCapLowerIsMore'] | json }}</pre>
+  <pre>{{ filterForm.get('marketCapMoreThan')?.errors | json }}</pre>
+  <pre>{{ filterForm.pristine | json }}</pre>
+  <pre>{{ filterForm.touched | json }}</pre>
+  <pre>{{ filterForm.value | json }}</pre>-->
+
+ <!--- <pre>{{ getpre() | json }}</pre>
+  <pre>{{ getfil() | json }}</pre>-->
+
+
+
+</dialog>
+
+
+

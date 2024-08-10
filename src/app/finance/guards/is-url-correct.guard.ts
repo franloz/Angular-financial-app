@@ -5,7 +5,7 @@ export const isUrlCorrectGuard: CanActivateFn = (route, state) => {
 
   const assetType = route.params['assetType'];
 
-  const validAssetTypes = ['crypto','dowjones'];
+  const validAssetTypes = ['crypto','dowjones','filter'];
   const router = inject (Router);
 
   if (!validAssetTypes.includes(assetType)) {

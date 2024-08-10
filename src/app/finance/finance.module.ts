@@ -13,6 +13,8 @@ import { PortfolioAssetCardComponent } from './components/portfolio/portfolio-as
 import { SharedModule } from '../shared/shared.module';
 import { AssetTypesComponent } from './components/market/asset-types/asset-types.component';
 import { RouterModule } from '@angular/router';
+import { AssetFilterComponent } from './components/market/asset-filter/asset-filter.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { RouterModule } from '@angular/router';
     FinanceLayoutComponent,
     GeneralAssetCardComponent,
     PortfolioAssetCardComponent,
-    AssetTypesComponent
+    AssetTypesComponent,
+    AssetFilterComponent
   ],
   imports: [
     CommonModule,
@@ -34,6 +37,7 @@ import { RouterModule } from '@angular/router';
     AuthModule,
     SharedModule,
     RouterModule,
+    ReactiveFormsModule,
   ]
 })
 export class FinanceModule { }

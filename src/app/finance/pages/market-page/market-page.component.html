@@ -1,6 +1,9 @@
 <div class="flex items-center">
   <finance-asset-types [currentAssetType]="currentAssetType" class="flex items-center justify-start gap-3 w-5/6"></finance-asset-types>
 
+  <div class="flex items-center justify-center w-1/6">
+    <button (click)="showModal()" class="p-2 bg-blue-400">Filters</button>
+  </div>
 
 </div>
 <table class="w-full mt-5">
@@ -33,3 +36,5 @@
 
 
 <auth-logout></auth-logout>
+<finance-asset-filter [financeAssets]="financeAssets"></finance-asset-filter>
+

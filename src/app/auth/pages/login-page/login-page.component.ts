@@ -23,7 +23,7 @@ export class LoginPageComponent {
 
   //show password with eye
   public typeInput: 'password' | 'text' = 'password';
-  public backgroundImageClass: string = "bg-[url('assets/svgs/eye_password_open.svg')]";
+  public backgroundImageClass: string = "bg-[url('assets/svgs/auth/eye_password_open.svg')]";
 
   constructor(
     private fb: FormBuilder,
@@ -74,10 +74,10 @@ export class LoginPageComponent {
   public showPassword() {
     if(this.typeInput === 'password') {
       this.typeInput = 'text';
-      this.backgroundImageClass = "bg-[url('assets/svgs/eye_password_close.svg')]";
+      this.backgroundImageClass = "bg-[url('assets/svgs/auth/eye_password_close.svg')]";
     } else {
       this.typeInput = 'password';
-      this.backgroundImageClass = "bg-[url('assets/svgs/eye_password_open.svg')]";
+      this.backgroundImageClass = "bg-[url('assets/svgs/auth/eye_password_open.svg')]";
     }
   }
 }

@@ -1,4 +1,4 @@
 export const enum WarningIcons {
-  XMark = 'assets/svgs/X_mark.svg',
-  CheckMark = 'assets/svgs/Check_mark.svg',
+  XMark = 'assets/svgs/auth/X_mark.svg',
+  CheckMark = 'assets/svgs/auth/Check_mark.svg',
 }

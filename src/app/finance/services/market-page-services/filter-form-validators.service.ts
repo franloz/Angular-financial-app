@@ -12,8 +12,6 @@ export class FilterFormValidatorsService {
 
     return (formGroup: AbstractControl): ValidationErrors | null => {
 
-
-
       const marketCapMore = formGroup.get('marketCapMoreThan');
       const marketCapLower = formGroup.get('marketCapLowerThan');
       const priceMore = formGroup.get('priceMoreThan');

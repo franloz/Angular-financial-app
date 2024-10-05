@@ -36,7 +36,7 @@ export class LoginPageComponent {
   //? dejo el remember me de manera automatica, como si
 
   public isRequiredField(field: string): boolean {
-    const control = this.loginForm.controls[field];
+    const control = this.loginForm.controls[field]; //also can be this.loginForm.get(field)
     return control?.errors?.['required'] && control.touched;
   }
 

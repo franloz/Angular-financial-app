@@ -87,3 +87,9 @@ Componentes de finance
 apikeys
 MvxdK6PkBvY4SCDMabFLier5mcd0Zwy2
 DeaS2JU5MzkER5o5TKfPFiBnVHPo8oE1
+
+
+ctrl + shift +a comentar en bloque
+
+
+/////si no se encuentra resultado en la busqueda poner un aviso

@@ -45,7 +45,7 @@ export class PaginationComponent {
       this.router.navigate([], {
         queryParams : { page },
         queryParamsHandling : 'merge'
-      })
+      })/* No, this.router.navigate con las opciones proporcionadas no recarga la página completa. Solo actualiza la URL y los parámetros de consulta (query params), sin provocar un refresh completo de la pantalla. Angular gestiona la navegación internamente, por lo que solo las partes de la aplicación que dependen de los parámetros de consulta se actualizarán si es necesario. */
     }
   }
 }

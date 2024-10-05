@@ -1,6 +1,6 @@
 
 ## Pasos
-
+0. npm install, instalar firebase
 1. Clonar el .env.template y renombrarlo a .env y añadir los datos de dev o prod segun corresponda
 2. Llenar las variables de entorno acorde
 3. Crear environments/environments.ts ejecutando npm run envs

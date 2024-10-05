@@ -29,8 +29,6 @@ export class AssetFilterComponent {
     ]
   });
 
-
-
   constructor(
     private fb: FormBuilder,
     private filterFormValidatorsService: FilterFormValidatorsService,
@@ -46,30 +44,27 @@ export class AssetFilterComponent {
     this.filterDialog.nativeElement.close();
   }
 
-  public isFilterFormValid = () => {
+  /* public isFilterFormValid = () => {
     if (this.filterForm.invalid) return true;
     return false;
-  }
+  } */
 
   public hasChangedFilterFormValues = () => {
     if (JSON.stringify(this.filterService.previousFormData) == JSON.stringify(this.filterForm.value)) return false;
     return true
   }
 
-  public getpre = () => {
+ /*  public getpre = () => {
     return this.filterService.previousFormData;
   }
 
   public getfil = () => {
     return this.filterForm.value;
-  }
-
+  } */
 
 
   public filterAssets = () => {
     if (this.filterForm.invalid) return;
-
-    //this.previousFormData = this.filterForm.value;
 
     if (!this.filterForm.get('isEtf')) {
       this.filterForm.get('isEtf')?.setValue(false);
@@ -77,14 +72,11 @@ export class AssetFilterComponent {
     if (!this.filterForm.get('isFund')) {
       this.filterForm.get('isFund')?.setValue(false);
     }
-    //this.filterService.saveFilterCurrentValues(this.filterForm.value);
+
     this.filterService.emitFormValues(this.filterForm.value);
     this.closeModal();
 
-
-
     this.router.navigate([`/filter`]);
-
   }
 
   public resetForm = () => {

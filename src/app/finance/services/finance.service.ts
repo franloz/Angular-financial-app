@@ -820,13 +820,14 @@ export class FinanceService {
     }
   ]; */
 
+
   public getAssetSymbols = (getApi: string, filterForm?: FilterFormValues): Observable<string> => {
 
     let filterFormString = '';
     if (filterForm) {//convert filterForm in query params
       for (const key in filterForm) {
         if (filterForm.hasOwnProperty(key)) {
-          let valueForm = filterForm[key as keyof FilterFormValues] ?? '';
+          let valueForm = filterForm[key as keyof FilterFormValues] ?? '';//key está siendo utilizado como una clave, y se está indicando que key debe ser una de las claves del tipo FilterFormValues (es decir, marketCapMoreThan, marketCapLowerThan, priceMoreThan...).
           if (Array.isArray(valueForm)) {
             const filteredValue = valueForm.filter(value => value !== '');
             valueForm = filteredValue.join(',');

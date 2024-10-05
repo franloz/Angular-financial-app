@@ -7,7 +7,7 @@ import { FilterFormValues } from '../../interfaces';
 })
 export class FilterService {
 
-  private formValues = new BehaviorSubject<FilterFormValues>({
+  private formValues = new BehaviorSubject<FilterFormValues>({/* it is a subject which emit a initial value */
     marketCapMoreThan: null,
     marketCapLowerThan: null,
     priceMoreThan: null,
@@ -29,11 +29,7 @@ export class FilterService {
 
   public previousFormData: FilterFormValues = this.defaultValues ;
 
-  /* public hasFilterValues: boolean = false; */
-
-
   constructor() { }
-
 
   public emitFormValues = (filterFormValue: FilterFormValues): void => {
     this.formValues.next(filterFormValue);

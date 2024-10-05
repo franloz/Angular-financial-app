@@ -13,6 +13,7 @@ import { FilterService } from '../../services/market-page-services/filter.servic
 })
 export class MarketPageComponent implements OnInit {
 
+
   public financeAssets: AssetDataCustom[] = [];
   //actual page for pagination
   public currentPage: number = 1;
@@ -31,87 +32,36 @@ export class MarketPageComponent implements OnInit {
 
   ngOnInit(): void {
 
-    //default data, I need this data because combineLatest doesnt work until his two observabkes emit one value each one
-    /* const paramsDefault: Params = {
-      'assetType' : 'stocks'
-    }
-
-    const defaultFormData: FilterFormValues = {
-      marketCapMoreThan: null,
-      marketCapLowerThan: null,
-      priceMoreThan: null,
-      priceLowerThan: null,
-      isEtf: false,
-      isFund: false,
-    }; */
-
     combineLatest([
-      this.activatedRoute.params
-      /* .pipe( */
-
-        //startWith(paramsDefault),
-        /* tap((formValues)=>console.log('ssss  ')), */
-      /* ) */,
+      this.activatedRoute.params,
       this.filterService.receiveFormValues()
-      /* .pipe( */
-
-        //simepre va a tener valor si viene de filter sino viene no se ejecuta
-          /* tap((formValues)=> {
-          console.log('ññññ  '+JSON.stringify(formValues));
-        }), */
-        //filter(formValues => formValues !== null && formValues !== undefined),
-        //startWith(defaultFormData),//el problema es q activatedRoute emite un valor despues de filter y se queda con el form defaultFormData
-        /* tap((formValues)=>console.log('oopopo  '+JSON.stringify(formValues))), */
-      /* ) */
     ]).pipe(
-        switchMap(([params, formValues]) => {
-          this.financeAssets = [];//this produce that lazyload appear always when the assets are loaded
-          //console.log('mmm  '+JSON.stringify(formValues));
-          const { assetType } = params;
+      switchMap(([params, formValues]) => {
+        this.financeAssets = [];//this produce that lazyload appear always when the assets are loaded
+        const { assetType } = params;
 
-          if (assetType == 'filter') {
-            /* this.filterDialog.filterForm.reset(formValues); */
-            this.filterService.saveFilterCurrentValues(formValues);
-          } else {
-            this.filterService.removeFilterCurrentValues();
-          }
+        if (assetType == 'filter') {
+          this.filterService.saveFilterCurrentValues(formValues);//if tis is /filter save the current values in filterValues
+          //it is the same as this.filterService.filterValues = formValues;
+        } else {
+          this.filterService.removeFilterCurrentValues();
+        }
 
-          this.filterService.previousFormData = this.filterService.filterValues;
-          /* console.log('000  '+assetType+'  '+this.filterService.hasFilterValues); */
-          /* if (assetType == 'filter' && this.filterService.hasFilterValues) {
-            formValues = this.filterService.filterValues;//si sigo estando en la url /filter se guardan los datos del filtro actual
-            this.filterService.previousFormData = this.filterService.filterValues;
-            /* console.log('aaaa  '+JSON.stringify(formValues)); */
-          /* } else {//sino se vacia el filtro
-            if (this.filterService.hasFilterValues) {
-              this.filterService.removeFilterCurrentValues();
-              this.filterService.previousFormData = this.filterService.defaultValues;
-              console.log('cccc  '+JSON.stringify(formValues));
-            }
+        this.filterService.previousFormData = this.filterService.filterValues;// i use previousFormData to compare in asset-filter if the current form value is different from the previous filtered
 
-          } */
+        this.currentAssetType = assetType;
 
-          //console.log('pppppp  '+JSON.stringify(this.filterService.filterValues));
-
-
-          this.currentAssetType = assetType;
-
-          return this.financeService.getAssets(assetType, formValues)
-            .pipe(
-              tap(assetList => this.financeAssets = assetList),
-              switchMap(() => this.activatedRoute.queryParamMap)
-            )
-        })
-      ).subscribe(params => {
-
-
-         /* console.log('lll '+JSON.stringify(this.filterService.filterValues)); */
-        this.filterDialog.filterForm.reset(this.filterService.filterValues);//pongo el form filter con los datos q correspondan
-        //this.filterDialog.previousFormData = this.filterService.filterValues;
-
-        this.setCurrentPage(params);
-        this.divideFinanceAssetsPerPage();
-      });
+        return this.financeService.getAssets(assetType, formValues)
+          .pipe(
+            tap(assetList => this.financeAssets = assetList),
+            switchMap(() => this.activatedRoute.queryParamMap)
+          )
+      })
+    ).subscribe(params => {
+      this.filterDialog.filterForm.reset(this.filterService.filterValues);//pongo el form filter con los datos q correspondan
+      this.setCurrentPage(params);
+      this.divideFinanceAssetsPerPage();
+    });
   }
 
   private setCurrentPage = (params: ParamMap) => {

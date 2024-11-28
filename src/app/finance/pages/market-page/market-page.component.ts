@@ -6,6 +6,7 @@ import { BehaviorSubject, combineLatest, filter, forkJoin, Observable, of, start
 import { AssetFilterComponent } from '../../components/market/asset-filter/asset-filter.component';
 import { FilterFormValues } from '../../interfaces';
 import { FilterService } from '../../services/market-page-services/filter.service';
+import { WatchlistService } from '../../services/watchlist.service';
 
 @Component({
   templateUrl: './market-page.component.html',
@@ -28,6 +29,7 @@ export class MarketPageComponent implements OnInit {
     private financeService: FinanceService,
     private activatedRoute: ActivatedRoute,
     private filterService: FilterService,
+    private watchlistService: WatchlistService,
   ) { }
 
   ngOnInit(): void {
@@ -53,11 +55,24 @@ export class MarketPageComponent implements OnInit {
 
         return this.financeService.getAssets(assetType, formValues)
           .pipe(
-            tap(assetList => this.financeAssets = assetList),
+            tap( assetList => {
+              this.financeAssets = assetList;
+            }),
             switchMap(() => this.activatedRoute.queryParamMap)
           )
       })
-    ).subscribe(params => {
+    ).subscribe(async params => {
+
+      const watchListSymbols = await this.watchlistService.getWatchlist();
+
+      if (watchListSymbols) {
+        this.financeAssets = this.financeAssets.map(asset => ({
+          ...asset,
+          favourite: watchListSymbols.includes(asset.symbol)
+        }));
+      }
+
+
       this.filterDialog.filterForm.reset(this.filterService.filterValues);//pongo el form filter con los datos q correspondan
       this.setCurrentPage(params);
       this.divideFinanceAssetsPerPage();

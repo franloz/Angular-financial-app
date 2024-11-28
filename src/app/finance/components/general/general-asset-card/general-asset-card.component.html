@@ -3,7 +3,10 @@
 
 
 
-  <td>{{ asset?.name }}</td>
+  <td class="flex items-center gap-11 text-start cursor-pointer">
+    <img (click)="toggleFavorite(asset?.symbol)" src="assets/svgs/finance/{{ isFavorite(asset?.symbol) }}.svg" alt="Like" title="Like" width="25" height="25">
+    {{ asset?.name }}
+  </td>
   <td>{{ asset?.symbol }}</td>
   <td>{{ asset?.price | currency: 'USD' : 'symbol' : '1.0-9' }}</td><!--tendre q ponerlo con la moneda que sea, la api me lo devuelve en usd, siq uiero poder elegir una moneda para la app tendre q hacer una conversion con algo-->
   <td>{{ asset?.changesPercentage| number:'1.0-2'}}%</td>

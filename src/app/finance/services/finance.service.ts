@@ -843,7 +843,9 @@ export class FinanceService {
     return this.http.get<AssetNasdaq[] | AssetCrypto[] | AssetStockScreener[]>(`${this._apiUrl}${getApi}?apikey=${this.apiKey.getApiKey()}${filterFormString}`)
     .pipe(
       map(assetList => assetList.slice(0, 100)),
+      //map(),
       map(assetList => assetList.map(asset => asset.symbol).join()),
+      //tap(a => console.log(a)),
       catchError(() => of(''))
     );
   }
@@ -879,6 +881,7 @@ export class FinanceService {
     return this.http.get<AssetData[]>(`${this._apiUrl}quote/${assetSymbolList}?apikey=${this.apiKey.getApiKey()}`)
       .pipe(
           map(assetList => assetList.map(({ name, symbol, price, changesPercentage, marketCap, sharesOutstanding }) => ({
+            favourite: false,
             name,
             symbol,
             price,
